@@ -1,19 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "./Modal";
 import { addData, updateData, deleteData } from "../lib/firebase";
 import { collection } from "firebase/firestore";
 import { db } from "../lib/firebase";
-import { useCollectionData } from "react-firebase-hooks/firestore";
+import { useCollection } from "react-firebase-hooks/firestore";
 
 const Projects = ({ userId }) => {
   const projectsRef = collection(db, `users/${userId}/projects`);
-  const [projects] = useCollectionData(projectsRef, { idField: "id" });
+  const [projects] = useCollection(projectsRef, { idField: "id" });
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [newProject, setNewProject] = useState({ title: "", description: "" });
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editedProject, setEditedProject] = useState(null);
+
+  useEffect(() => {
+    if (editedProject && !editedProject.id) {
+      console.error("Error: editedProject.id is undefined");
+    }
+  }, [editedProject]);
 
   const handleAddProject = async () => {
     await addData(userId, "projects", newProject);
@@ -35,9 +41,9 @@ const Projects = ({ userId }) => {
   };
 
   const transformProjectsData = (projectsData) => {
-    return projectsData.map((project) => {
-      const { id, ...rest } = project;
-      return { id: project.id, ...rest };
+    return projectsData.docs.map((doc) => {
+      const { id, ...rest } = doc.data();
+      return { id: doc.id, ...rest };
     });
   };
 
