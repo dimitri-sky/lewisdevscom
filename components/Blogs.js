@@ -38,7 +38,12 @@ const Blogs = ({ userId }) => {
 
   return (
     <>
-      <button onClick={() => setIsAddModalOpen(true)}>Add Blog</button>
+      <button
+        onClick={() => setIsAddModalOpen(true)}
+        className="px-3 py-1 mb-4 text-sm font-semibold tracking-wide text-white transition duration-200 transform rounded-full bg-gradient-to-r from-red-500 to-black hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+      >
+        Add Blog
+      </button>
       <Modal
         title="Add Blog"
         isOpen={isAddModalOpen}
@@ -46,18 +51,30 @@ const Blogs = ({ userId }) => {
         onSubmit={handleAddBlog}
       >
         {/* Add form fields for the blog */}
-        <label htmlFor="title">Title:</label>
+        <label
+          htmlFor="title"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Title:
+        </label>
         <input
           type="text"
           id="title"
           value={newBlog.title}
           onChange={(e) => setNewBlog({ ...newBlog, title: e.target.value })}
+          className="block w-full mt-1 mb-4 border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm"
         />
-        <label htmlFor="content">Content:</label>
+        <label
+          htmlFor="content"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Content:
+        </label>
         <textarea
           id="content"
           value={newBlog.content}
           onChange={(e) => setNewBlog({ ...newBlog, content: e.target.value })}
+          className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm"
         />
       </Modal>
 
@@ -66,53 +83,80 @@ const Blogs = ({ userId }) => {
         blogs.docs.map((doc) => {
           const blogData = doc.data();
           return (
-            <div key={doc.id}>
-              <h3>{blogData.title}</h3>
-              <p>{blogData.content}</p>
-              <button
-                onClick={() => {
-                  setIsEditModalOpen(true);
-                  setEditedBlog({ id: doc.id, ...blogData });
-                }}
-              >
-                Edit
-              </button>
-              <button onClick={() => handleDeleteBlog(doc.id)}>Delete</button>
+            <div
+              key={doc.id}
+              className="p-4 mb-4 transition duration-200 transform bg-white rounded-lg shadow-md hover:scale-105"
+            >
+              <h3 className="mb-2 text-lg font-semibold text-gray-700">
+                {blogData.title}
+              </h3>
+              <p className="text-gray-600">{blogData.content}</p>
+              <div className="mt-4 space-x-4">
+                <button
+                  onClick={() => {
+                    setEditedBlog({ id: doc.id, ...blogData });
+                    setIsEditModalOpen(true);
+                  }}
+                  className="px-3 py-1 text-sm font-semibold tracking-wide text-white transition duration-200 transform rounded-full bg-gradient-to-r from-red-500 to-black hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => handleDeleteBlog(doc.id)}
+                  className="px-3 py-1 text-sm font-semibold tracking-wide text-white transition duration-200 transform rounded-full bg-gradient-to-r from-red-500 to-black hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           );
         })}
-
-      {/* Edit blog modal */}
-      {editedBlog && (
-        <Modal
-          title="Edit Blog"
-          isOpen={isEditModalOpen}
-          setIsOpen={setIsEditModalOpen}
-          onSubmit={handleEditBlog}
-        >
-          {/* Add form fields for the blog */}
-          <label htmlFor="editTitle">Title:</label>
-          <input
-            type="text"
-            id="editTitle"
-            value={editedBlog.title}
-            onChange={(e) =>
-              setEditedBlog({ ...editedBlog, title: e.target.value })
-            }
-          />
-                    <label htmlFor="editContent">Content:</label>
-          <textarea
-            id="editContent"
-            value={editedBlog.content}
-            onChange={(e) =>
-              setEditedBlog({ ...editedBlog, content: e.target.value })
-            }
-          />
-        </Modal>
-      )}
+      {loading && <p>Loading...</p>}
+      {error && <p>Error: {JSON.stringify(error)}</p>}
+      {/* Edit Blog Modal */}
+      <Modal
+        title="Edit Blog"
+        isOpen={isEditModalOpen}
+        setIsOpen={setIsEditModalOpen}
+        onSubmit={handleEditBlog}
+      >
+        {/* Edit form fields for the blog */}
+        {editedBlog && (
+          <>
+            <label
+              htmlFor="edit-title"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Title:
+            </label>
+            <input
+              type="text"
+              id="edit-title"
+              value={editedBlog.title}
+              onChange={(e) =>
+                setEditedBlog({ ...editedBlog, title: e.target.value })
+              }
+              className="block w-full mt-1 mb-4 border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm"
+            />
+            <label
+              htmlFor="edit-content"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Content:
+            </label>
+            <textarea
+              id="edit-content"
+              value={editedBlog.content}
+              onChange={(e) =>
+                setEditedBlog({ ...editedBlog, content: e.target.value })
+              }
+              className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm"
+            />
+          </>
+        )}
+      </Modal>
     </>
   );
 };
 
 export default Blogs;
-
