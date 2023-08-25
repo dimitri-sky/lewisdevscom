@@ -51,7 +51,9 @@ const Projects = ({ userId }) => {
 
   return (
     <>
-      <button onClick={() => setIsAddModalOpen(true)}>Add Project</button>
+      <button onClick={() => setIsAddModalOpen(true)}
+      className="px-3 py-1 mb-4 text-sm font-semibold tracking-wide text-white transition duration-200 transform rounded-full bg-gradient-to-r from-red-500 to-black hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+      >Add Project</button>
       <Modal
         title="Add Project"
         isOpen={isAddModalOpen}
@@ -81,27 +83,27 @@ const Projects = ({ userId }) => {
       {/* Render projects */}
       {transformedProjects &&
         transformedProjects.map((project) => (
-<<<<<<< Updated upstream
-          <div key={project.id}>
-            <h3>{project.title}</h3>
-            <p>{project.description}</p>
-=======
           <div
             key={project.id}
             className="p-4 mb-4 transition duration-200 transform bg-white rounded-lg shadow-md hover:scale-105"
           >
-            <h3 className="mb-2 text-lg font-semibold text-gray-700">{project.title}</h3>
+            <h3 className="mb-2 text-xl font-bold">{project.title}</h3>
             <p className="mb-4 text-gray-700">{project.description}</p>
->>>>>>> Stashed changes
             <button
               onClick={() => {
                 setIsEditModalOpen(true);
                 setEditedProject({ ...project });
               }}
+              className="px-3 py-1 mr-4 text-sm font-semibold tracking-wide text-white transition duration-200 transform rounded-full bg-gradient-to-r from-red-500 to-black hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
             >
               Edit
             </button>
-            <button onClick={() => handleDeleteProject(project.id)}>Delete</button>
+            <button
+              onClick={() => handleDeleteProject(project.id)}
+              className="px-3 py-1 text-sm font-semibold tracking-wide text-white transition duration-200 transform rounded-full bg-gradient-to-r from-red-500 to-black hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+            >
+              Delete
+            </button>
           </div>
         ))}
 
@@ -112,9 +114,10 @@ const Projects = ({ userId }) => {
           isOpen={isEditModalOpen}
           setIsOpen={setIsEditModalOpen}
           onSubmit={handleEditProject}
+          className="w-full max-w-md mx-auto"
         >
           {/* Add form fields for the project */}
-          <label htmlFor="editTitle">Title:</label>
+          <label htmlFor="editTitle" className="block text-sm font-medium text-gray-700">Title:</label>
           <input
             type="text"
             id="editTitle"
@@ -122,14 +125,17 @@ const Projects = ({ userId }) => {
             onChange={(e) =>
               setEditedProject({ ...editedProject, title: e.target.value })
             }
+            className="block w-full mt-1 mb-4 border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm"
           />
-          <label htmlFor="editDescription">Description:</label>
+          <label htmlFor="editDescription" className="block text-sm font-medium text-gray-700">Description:</label>
           <textarea
             id="editDescription"
             value={editedProject.description}
             onChange={(e) =>
               setEditedProject({ ...editedProject, description: e.target.value })
+              
             }
+            className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm"
           />
         </Modal>
       )}
