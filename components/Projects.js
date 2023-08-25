@@ -81,9 +81,18 @@ const Projects = ({ userId }) => {
       {/* Render projects */}
       {transformedProjects &&
         transformedProjects.map((project) => (
+<<<<<<< Updated upstream
           <div key={project.id}>
             <h3>{project.title}</h3>
             <p>{project.description}</p>
+=======
+          <div
+            key={project.id}
+            className="p-4 mb-4 transition duration-200 transform bg-white rounded-lg shadow-md hover:scale-105"
+          >
+            <h3 className="mb-2 text-lg font-semibold text-gray-700">{project.title}</h3>
+            <p className="mb-4 text-gray-700">{project.description}</p>
+>>>>>>> Stashed changes
             <button
               onClick={() => {
                 setIsEditModalOpen(true);

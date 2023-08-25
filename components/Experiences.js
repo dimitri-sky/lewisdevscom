@@ -91,10 +91,23 @@ const Experiences = ({ userId }) => {
       {/* Render experiences */}
       {transformedExperiences &&
         transformedExperiences.map((experience) => (
+<<<<<<< Updated upstream
           <div key={experience.id}>
                         <h3>{experience.title}</h3>
             <p>{experience.description}</p>
             <p>{experience.startDate} - {experience.endDate}</p>
+=======
+          <div
+            key={experience.id}
+            className="p-4 mb-4 transition duration-200 transform bg-white rounded-lg shadow-md hover:scale-105"
+          >
+            <h3 className="mb-2 text-lg font-semibold text-gray-700">{experience.title}</h3>
+            <p className="mb-2 text-gray-700">{experience.description}</p>
+            <p className="mb-4 text-gray-700">
+              <br/>
+              From {experience.startDate} to {experience.endDate}
+            </p>
+>>>>>>> Stashed changes
             <button
               onClick={() => {
                 setIsEditModalOpen(true);
@@ -103,7 +116,16 @@ const Experiences = ({ userId }) => {
             >
               Edit
             </button>
+<<<<<<< Updated upstream
             <button onClick={() => handleDeleteExperience(experience.id)}>Delete</button>
+=======
+            <button
+              onClick={() => handleDeleteExperience(experience.id)}
+              className="px-3 py-1 text-sm font-semibold tracking-wide text-white transition duration-200 transform rounded-full bg-gradient-to-r from-red-500 to-black hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+            >
+              Delete
+            </button>
+>>>>>>> Stashed changes
           </div>
         ))}
 
