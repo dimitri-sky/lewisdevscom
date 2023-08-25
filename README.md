@@ -1,8 +1,8 @@
 LewisDevs Portfolio Platform
 
 <div align="center">
-  <img src="https://github.com/dimitri-sky/lewisdevscom/tree/main/assets/login.png" width="30%" />
-  <img src="https://github.com/dimitri-sky/lewisdevscom/tree/main/assets/profile.PNG" width="30%" />
+  <img src="https://github.com/dimitri-sky/lewisdevscom/blob/main/assets/login.png" width="30%" />
+  <img src="https://github.com/dimitri-sky/lewisdevscom/blob/main/assets/profile.PNG" width="30%" />
 </div>
 
 LewisDevs is an intuitive and user-friendly platform that empowers developers to create and showcase their professional portfolios. With just a simple sign-in via Google, you can personalize your portfolio with projects, blogs, and experiences.
